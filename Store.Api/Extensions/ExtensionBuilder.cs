@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Store.Domain;
@@ -46,7 +46,7 @@ namespace Store.Api.Extensions
         public static void AddDbContext(this WebApplicationBuilder builder)
         {
             builder.Services.AddDbContext<StoreDbContext>(options =>
-                options.UseSqlServer(Configuration.Database.ConnectionString));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
         }
 
         public static void AddMediator(this WebApplicationBuilder builder)
